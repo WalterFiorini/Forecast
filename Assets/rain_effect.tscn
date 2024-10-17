@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjpjf27tn17aa"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wqsnb"]
+lifetime_randomness = 0.5
+color = Color(0, 0.729018, 0.732767, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sn8r8"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="RainEffect" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1.79853, 0)
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_wqsnb")
+draw_pass_1 = SubResource("BoxMesh_sn8r8")

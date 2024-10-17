@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://bji5oypfh4usy"]
+
+[ext_resource type="Script" path="res://Assets/main_scene.gd" id="1_6pcb6"]
+[ext_resource type="PackedScene" uid="uid://cjpjf27tn17aa" path="res://Assets/rain_effect.tscn" id="2_hrqp2"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o2q2g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_li8u8"]
+albedo_color = Color(0.247059, 0.607843, 0.0431373, 1)
+
+[sub_resource type="Environment" id="Environment_l0fak"]
+background_energy_multiplier = 2.0
+ambient_light_source = 2
+ambient_light_color = Color(0.000698714, 0.709606, 0.106565, 0.945098)
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_6pcb6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_o2q2g")
+surface_material_override/0 = SubResource("StandardMaterial3D_li8u8")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.908508, 0.417867, 0, -0.417867, 0.908508, 0, 2.57113, 10.4978)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l0fak")
+
+[node name="WeatherRequest" type="HTTPRequest" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 15.0
+offset_top = 1.0
+offset_right = 766.0
+offset_bottom = 172.0
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel"]
+offset_left = 494.0
+offset_top = 73.0
+offset_right = 629.0
+offset_bottom = 105.0
+text = "Update Weather"
+
+[node name="CityInput" type="LineEdit" parent="CanvasLayer/Panel"]
+offset_left = 429.0
+offset_top = 6.0
+offset_right = 683.0
+offset_bottom = 37.0
+text = "Enter City Name Here"
+alignment = 1
+
+[node name="WeatherLabel" type="Label" parent="CanvasLayer/Panel"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 405.0
+offset_bottom = 114.0
+
+[node name="RainEffect" parent="." instance=ExtResource("2_hrqp2")]
+
+[connection signal="pressed" from="CanvasLayer/Panel/Button" to="." method="on_button_pressed"]
